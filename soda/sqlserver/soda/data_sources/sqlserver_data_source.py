@@ -133,14 +133,13 @@ class SQLServerDataSource(DataSource):
                 + self.driver
                 + "};SERVER="
                 + self.host
-                + ","
+                + ";port="
                 + str(self.port)
                 + ";DATABASE="
                 + self.database
-                + ";UID="
-                + self.username
-                + ";PWD="
-                + self.password
+                + ( f';UID={self.username}' if self.username else "")
+                + ( f';PWD={self.password}' if self.password else "" )
+                +";"
             )
 
             self.connection.add_output_converter(-155, handle_datetimeoffset)
